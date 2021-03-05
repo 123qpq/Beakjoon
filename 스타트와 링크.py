@@ -1,22 +1,20 @@
-#14889
-def coll(l):
+def coll(l, s):
     global res
     if l == team:
-        starts = 0
-        links = 0
-        for i in range(n):
-            for j in range(i+1, n):
-                if i in link and j in link:
-                    links += dic[(i, j)]
-                if i not in link and j not in link:
-                    starts += dic[(i, j)]
-        if abs(starts-links) < res:
-            res = abs(starts-links)
+        start.sort()
+        new = 0
+        for i in range(team):
+            for j in range(i+1, team):
+                new += dic[(start[i], start[j])] - dic[(link[i], link[j])]
+        if abs(new) < res:
+            res = abs(new)
     else:
-        for i in range(l, n):
+        for i in range(s, n):
             link.append(i)
-            coll(l+1)
+            start.remove(i)
+            coll(l+1, i+1)
             link.remove(i)
+            start.append(i)
 
 n = int(input())
 team = n // 2
@@ -26,7 +24,8 @@ for i in range(n):
     for j in range(i+1, n):
         dic[(i, j)] = table[i][j] + table[j][i]
 
-link = [0]
+start = list(range(n))
+link = []
 res = float('inf')
-coll(1)
+coll(1, 1)
 print(res)
