@@ -17,7 +17,6 @@ graph = {}
 for i in range(n):
     root, left, right = input().split()
     graph[root] = [left, right]
-print(graph)
 res1 = [] # 전위
 res2 = [] # 중위
 res3 = [] # 후위
