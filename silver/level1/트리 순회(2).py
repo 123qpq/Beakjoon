@@ -1,3 +1,4 @@
+#1991
 def bfs1(level, node):
     if node == '.':
         return
