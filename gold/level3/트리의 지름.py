@@ -6,7 +6,7 @@ def bfs(node):
     q = deque([(node, 0)])
     while q:
         nextnode, dis = q.popleft()
-        for i in dic[nextnode]:
+        for i in lst[nextnode]:
             if visited[i[0]] == False:
                 visited[i[0]] = True
                 q.append((i[0], i[1]+dis))
@@ -17,14 +17,14 @@ def bfs(node):
 
 if __name__ == "__main__":
     n = int(sys.stdin.readline())
-    dic = {}
+    lst = [[]for _ in range(n)]
     visited = [False] * (n+1)
     ans = 0
 
     for _ in range(n):
         node, *temp = map(int, sys.stdin.readline().split())
         for i in range(0, len(temp)-1, 2):
-            dic[node] = dic.get(node, []) + [(temp[i], temp[i+1])]
+            lst[node-1].append((temp[i]-1, temp[i+1]))
 
     visited[1] = True
     a = bfs(1)[0]
