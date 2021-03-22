@@ -25,8 +25,7 @@ for _ in range(tc):
         s, e, t = map(int, sys.stdin.readline().split())
         graph[s].append((e, -t))
         
-    distlst = [float('inf')]*(n+1)
-    distlst[e] = 0
+    distlst = [9999999]*(n+1)
 
     if solution():
         print("YES")
