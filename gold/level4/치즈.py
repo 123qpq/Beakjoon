@@ -3,14 +3,13 @@ import sys
 from collections import deque
 n, m = map(int, sys.stdin.readline().split())
 table = [list(map(int, sys.stdin.readline().split())) for _ in range(n)]
+visited = [[False]*m for _ in range(n)]
+dq = deque([(0, 0)])
 answer = 0
 dx = [0, 1, 0, -1]
 dy = [1, 0, -1, 0]
 
-
 def sol():
-    visited = [[False]*m for _ in range(n)]
-    dq = deque([(0, 0)])
     while dq:
         x, y = dq.popleft()
         for i in range(4):
@@ -23,22 +22,23 @@ def sol():
                     visited[dyy][dxx] = True
                     dq.append((dxx, dyy))
                 
-def cleaning():
-    temp = (0, 0)
+def melting():
+    temp = True
     for i in range(n):
         for j in range(m):
             if table[i][j] == 0:
                 continue
             elif table[i][j] > 2:
-                temp = (j, i)
                 table[i][j] = 0
-            else:
-                table[i][j] = 1
+                visited[i][j] = True
+                dq.append((j, i))
+        if False in visited[i]:
+            temp = False
     return temp
 
 while True:
-    sol()
-    if cleaning() == (0, 0):
-        break
     answer += 1
+    sol()
+    if melting():
+        break
 print(answer)
