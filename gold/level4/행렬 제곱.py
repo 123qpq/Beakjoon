@@ -1,38 +1,21 @@
 import sys
+#10830
+n, b = map(int, sys.stdin.readline().split())
+mat = [list(map(int, sys.stdin.readline().split())) for _ in range(n)]
 
-n, m = map(int, sys.stdin.readline().split())
-met = [list(map(int, sys.stdin.readline().split())) for _ in range(n)]
-#answer = [[1 if i==j else 0 for i in range(n)] for j in range(n)]
-answer = [met[i] for i in range(n)]
 
-def make_mat(a, b):
-    return [[sum(a*b for a, b in zip(row, col))%1000 for col in zip(*a)] for row in b]
-
-if m % 2:
-    m -= 1
-    while m != 0:
-        temp = met[:]
-    if m % 2:
-        answer = make_mat(answer, met)
-        m -= 1
+def sol(mat, b):
+    if b == 1:
+        return mat
     else:
-        answer = make_mat(answer, answer)
-        m //= 2
-    print(answer, m)
-else:
-    m *= 2
-    while m >= 2:
-        temp = met[:]
-    if m % 2:
-        answer = make_mat(answer, met)
-        m -= 1
-    else:
-        answer = make_mat(answer, answer)
-        m //= 2
-    print(answer, m)
+        if b%2:
+            ans = sol(mat, b-1)
+            temp = [[sum(a*b for a, b in zip(row, col))%1000 for col in zip(*ans)] for row in mat]
+        else:
+            ans = sol(mat, b//2)
+            temp = [[sum(a*b for a, b in zip(row, col))%1000 for col in zip(*ans)] for row in ans]
+    return temp
 
-
-for ans in answer:
-    for a in ans:
-        print(a, end = ' ')
-    print()
+for row in sol(mat, b):
+    
+    print(' '.join(map(lambda x : str(x%1000), row)))
