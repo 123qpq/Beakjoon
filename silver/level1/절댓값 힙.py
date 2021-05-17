@@ -6,10 +6,11 @@ minus = []
 plus = []
 for _ in range(n):
     num = int(sys.stdin.readline().rstrip())
-    if num > 0:
-        heapq.heappush(plus, num)
-    elif num < 0:
-        heapq.heappush(minus, abs(num))
+    if num:
+        if num > 0:
+            heapq.heappush(plus, num)
+        else:
+            heapq.heappush(minus, -num)
     else:
         if plus and minus:
             if plus[0] < minus[0]:
