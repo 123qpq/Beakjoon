@@ -13,6 +13,7 @@ def sol(start, end):
     print(tree[start]) #루트출력
 
 tree = []
+count = 0
 while count <= 10000:
     try:
         temp = int(input())
